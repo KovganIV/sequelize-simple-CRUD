@@ -38,7 +38,7 @@ function Controller(Model) {
     Model
       .findById(id)
       .then(function(result) {
-        if (!result) response.sendStatus(404);
+        if (!result) return response.sendStatus(404);
 
         response.json({response: {item: result}});
       })
