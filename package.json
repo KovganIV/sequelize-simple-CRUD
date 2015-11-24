@@ -1,0 +1,7 @@
+{
+  "name": "sequelize-simple-CRUD",
+  "version": "0.0.1",
+  "dependencies": {
+    "sequelize": "^3.14.1"
+  }
+}
