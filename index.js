@@ -151,8 +151,10 @@ function Controller(Model) {
   }
 
   function error500(response, error) {
-    console.log(error.stack);
-    response.status(500).json({error: error.toString()});
+    if (error) {
+      console.log(error.stack);
+      response.status(500).json({error: error.toString()});
+    } else response.sendStatus(500);
   }
 
   return {
@@ -168,7 +170,7 @@ function Controller(Model) {
 }
 
 module.exports = {
-  errorFunction: errorFunction,
+  setErrorFunction: function(obj) {errorFunction = obj;},
   QueryHelper: QueryHelper,
   Controller: Controller,
 };

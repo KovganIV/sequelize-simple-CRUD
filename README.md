@@ -1,6 +1,6 @@
 # sequelize-simple-CRUD
 
-### Simple example of CRUD API config
+### Example of CRUD API config
 
     var ssCRUD = require('sequelize-simple-crud');
     
