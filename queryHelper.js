@@ -7,7 +7,7 @@
 // sortField - name of q sort field from response query. Example: 'filter'. Field data: 'name' or '-name' etc.
 // sortFields - array of arrays with filter names and table columns. Example: [['name', 'name'], ['createdAt', 'createdAt']] and with relations [['date', '"Orders"."orderDate"']]
 
-module.exports = function(sequelize, offsetF, countF, qF, searchArray, sortField, sortFields) {
+module.exports = function(sequelize, offsetF, countF, qF, searchArray, sortFieldF, sortFields) {
   return {
     getConfig: function(request) {
       var config = {};
@@ -15,6 +15,7 @@ module.exports = function(sequelize, offsetF, countF, qF, searchArray, sortField
       var q = request.query[qF];
       var offset = request.query[offsetF];
       var count = request.query[countF];
+      var sortField = request.query[sortFieldF];
 
       config.where = {};
       if (q && searchArray.length > 0) {
@@ -26,15 +27,13 @@ module.exports = function(sequelize, offsetF, countF, qF, searchArray, sortField
       }
 
       if (sortField && sortFields) {
-        config.order = {};
         var isRevers = sortField.indexOf('-') == 0;
         if (isRevers) sortField = sortField.substr(1, sortField.length);
         for (var i = 0; i < sortFields.length; i++) {
           var map = sortFields[i];
-          if (map[0] == sortField) {
-            if (sortField == 'createdAt' || sortField == 'updatedAt') {
-              config.order = [[sortField, isRevers ? 'ASC' : 'DESC']]
-            } else config.order = (map[1] + ' ' + (isRevers ? 'ASC' : 'DESC'));
+          if (map == sortField) {
+            if (!config.order) config.order = {};
+            config.order = [[sortField, isRevers ? 'ASC' : 'DESC']]
           }
         }
       }

@@ -1,7 +1,7 @@
 {
   "name": "sequelize-simple-crud",
   "description": "Simple sequelize CRUD controllers builder",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "dependencies": {
   }
 }
