@@ -33,7 +33,7 @@ module.exports = function(sequelize, offsetF, countF, qF, searchArray, sortField
           var map = sortFields[i];
           if (map == sortField) {
             if (!config.order) config.order = {};
-            config.order = [[sortField, isRevers ? 'ASC' : 'DESC']]
+            config.order = [[sortField, isRevers ? 'DESC' : 'ASC']]
           }
         }
       }
