@@ -6,9 +6,7 @@ Sequelize-simple-CRUD is a Sequelize based API builder for Node.js.
 
 `npm install sequelize-simple-crud`
 
-## Example
-
-### API responses
+### API responses example
 
 Get item
 ```
@@ -23,7 +21,7 @@ With error
     {"error": "Wrong params"}
 ```
 
-### CRUD API config
+### CRUD API config example
 
     var ssCRUD = require('sequelize-simple-crud');
     
@@ -36,6 +34,8 @@ With error
         'offset',
         'count',
         'q',
+        ['severity', 'source', 'message'],
+        'filter',
         ['severity', 'source', 'message']
       ));
 
