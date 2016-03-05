@@ -14,7 +14,7 @@ Get item
 ```
 Get items
 ```
-    {"items": [{"id": 1}, {"id": 2}]}
+    {"items": [{"id": 1}, {"id": 2}], "count": 2}
 ```
 With error
 ```
