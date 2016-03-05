@@ -1,7 +1,7 @@
 {
   "name": "sequelize-simple-crud",
-  "description": "Simple sequelize CRUD controllers builder",
-  "version": "0.0.9",
+  "description": "Library for building REST API by json config",
+  "version": "0.0.13",
   "dependencies": {
   }
 }
