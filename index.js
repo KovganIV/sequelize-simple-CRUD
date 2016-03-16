@@ -5,9 +5,9 @@ var errorFunction;
 function Controller(Model) {
   var queryHelper;
   var createMandatoryFields;
-  var createFields;
+  var optionalCreateFields;
   var updateMandatoryFields;
-  var updateFields;
+  var optionalUpdateFields;
 
   // Settings
 
@@ -16,15 +16,15 @@ function Controller(Model) {
     return this;
   }
 
-  function addCreate(mandatoryFieldsI, fieldsI) {
+  function addCreate(mandatoryFieldsI, optionalFieldsI) {
     createMandatoryFields = mandatoryFieldsI;
-    createFields = fieldsI;
+    optionalCreateFields = optionalFieldsI;
     return this;
   }
 
-  function addUpdate(mandatoryFieldsI, fieldsI) {
+  function addUpdate(mandatoryFieldsI, optionalFieldsI) {
     updateMandatoryFields = mandatoryFieldsI;
-    updateFields = fieldsI;
+    optionalUpdateFields = optionalFieldsI;
     return this;
   }
 
@@ -40,7 +40,7 @@ function Controller(Model) {
       .then(function(result) {
         if (!result) return response.sendStatus(404);
 
-        response.json({item: result});
+        response.json({response: {item: result}});
       })
       .catch(function(error) {
         if (errorFunction) errorFunction(response, error, function() {error500(response, error)});
@@ -54,7 +54,7 @@ function Controller(Model) {
     Model
       .findAndCount(config)
       .then(function(result) {
-        response.json({count: result.count, items: result.rows});
+        response.json({response: {count: result.count, items: result.rows}});
       })
       .catch(function(error) {
         console.log(error.stack);
@@ -67,16 +67,16 @@ function Controller(Model) {
 
     if (createMandatoryFields) {
       for (var i = 0; i < createMandatoryFields.length; i++) {
-        if (request.body[createMandatoryFields[i]]) {
+        if (request.body[createMandatoryFields[i]] !== undefined) {
           config[createMandatoryFields[i]] = request.body[createMandatoryFields[i]];
         } else return response.status(400).json({error: 'Wrong parameters'});
       }
     }
 
-    if (createFields) {
-      for (var i = 0; i < createFields.length; i++) {
-        if (request.body[createFields[i]]) {
-          config[createFields[i]] = request.body[createFields[i]];
+    if (optionalCreateFields) {
+      for (var i = 0; i < optionalCreateFields.length; i++) {
+        if (request.body[optionalCreateFields[i]] !== undefined) {
+          config[optionalCreateFields[i]] = request.body[optionalCreateFields[i]];
         }
       }
     }
@@ -101,16 +101,16 @@ function Controller(Model) {
 
     if (updateMandatoryFields) {
       for (var i = 0; i < updateMandatoryFields.length; i++) {
-        if (request.body[updateMandatoryFields[i]]) {
+        if (request.body[updateMandatoryFields[i]] !== undefined) {
           config[updateMandatoryFields[i]] = request.body[updateMandatoryFields[i]];
         } else return response.status(400).json({error: 'Wrong parameters'});
       }
     }
 
-    if (updateFields) {
-      for (var i = 0; i < updateFields.length; i++) {
-        if (request.body[updateFields[i]]) {
-          config[updateFields[i]] = request.body[updateFields[i]];
+    if (optionalUpdateFields) {
+      for (var i = 0; i < optionalUpdateFields.length; i++) {
+        if (request.body[optionalUpdateFields[i]] !== undefined) {
+          config[optionalUpdateFields[i]] = request.body[optionalUpdateFields[i]];
         }
       }
     }
