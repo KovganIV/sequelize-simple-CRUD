@@ -81,7 +81,7 @@ Your router
         'offset',
         'count',
         'q',
-        ['severity', 'source', 'message'],
+        ['severity', 'source', 'message'], // You can use relation fields. Example: 'UserModel.name'
         'filter',
         ['severity', 'source', 'message']
       ));
