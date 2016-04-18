@@ -38,8 +38,8 @@ module.exports = function(sequelize, offsetF, countF, qF, searchArray, sortField
         }
       }
 
-      if (offset) config.offset = offset;
-      if (count) config.limit = count;
+      if (offset && !isNaN(offset)) config.offset = offset;
+      if (count && !isNaN(offset)) config.limit = count;
       config.subQuery = false;
       return config;
     }

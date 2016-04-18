@@ -40,7 +40,7 @@ function Controller(Model) {
       .then(function(result) {
         if (!result) return response.sendStatus(404);
 
-        response.json({response: {item: result}});
+        response.json({item: result});
       })
       .catch(function(error) {
         if (errorFunction) errorFunction(response, error, function() {error500(response, error)});
@@ -54,7 +54,7 @@ function Controller(Model) {
     Model
       .findAndCount(config)
       .then(function(result) {
-        response.json({response: {count: result.count, items: result.rows}});
+        response.json({count: result.count, items: result.rows});
       })
       .catch(function(error) {
         console.log(error.stack);
